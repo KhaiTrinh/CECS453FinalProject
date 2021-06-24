@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="default_padding">20dp</dimen>
+    <dimen name="register_margin_top">15dp</dimen>
+    <dimen name="register_margin_left_right">15dp</dimen>
+</resources>
