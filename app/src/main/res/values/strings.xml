@@ -7,6 +7,7 @@
     <string name="email_hint">Email</string>
     <string name="btn_login">Login</string>
     <string name="btn_register">Register</string>
+    <string name="btn_submit">Submit</string>
     <string name="err_username">Username cannot be empty or already exists</string>
     <string name="err_password">Password must contain uppercase, lowercase, numbers, special characters, and 8 character long</string>
     <string name="err_password_confirmation">Please re-type the password correctly</string>
