@@ -18,9 +18,9 @@ public class LoginActivity extends AppCompatActivity {
     private static final String LOGIN_SETTINGS_FILE_NAME = "login_settings";
     private SharedPreferences settings;
 
+    private EditText mUsername, mPassword;
     private Button mLogin;
     private CheckBox mRememberMe;
-    private EditText mUsername, mPassword;
     private TextView mRegister;
 
     @Override
