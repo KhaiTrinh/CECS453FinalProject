@@ -24,9 +24,10 @@
         android:padding="@dimen/default_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginToolbar"
-        app:layout_constraintVertical_bias="0.509">
+        app:layout_constraintVertical_bias="0.0">
 
         <EditText
             android:id="@+id/etLoginUsername"
@@ -63,24 +64,25 @@
             app:layout_constraintTop_toBottomOf="@+id/etLoginPassword" />
 
         <Button
-            android:id="@+id/btnRegister"
-            android:layout_width="@dimen/login_btn_size"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/btn_margin_top"
-            android:text="@string/btn_register"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cbRememberMe" />
-
-        <Button
             android:id="@+id/btnLogin"
             android:layout_width="@dimen/login_btn_size"
             android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
             android:layout_marginTop="@dimen/btn_margin_top"
             android:text="@string/btn_login"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btnRegister"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cbRememberMe" />
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_top"
+            android:text="@string/txt_register"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

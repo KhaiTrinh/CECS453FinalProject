@@ -3,7 +3,7 @@
     <dimen name="default_padding">20dp</dimen>
     <dimen name="margin_top">15dp</dimen>
     <dimen name="register_margin_sides">15dp</dimen>
-    <dimen name="btn_margin_top">50dp</dimen>
+    <dimen name="btn_margin_top">25dp</dimen>
     <dimen name="login_btn_margin_sides">20dp</dimen>
-    <dimen name="login_btn_size">175dp</dimen>
+    <dimen name="login_btn_size">250dp</dimen>
 </resources>
