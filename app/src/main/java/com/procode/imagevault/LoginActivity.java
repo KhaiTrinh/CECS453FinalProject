@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_SETTINGS_FILE_NAME = "login_settings";
-    private SharedPreferences settings;
+    private static SharedPreferences settings;
     private FirebaseAuth mAuth;
 
     private EditText mEmail, mPassword;
@@ -34,6 +34,12 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        mEmail = findViewById(R.id.etRegisterEmail);
+        mPassword = findViewById(R.id.etLoginPassword);
+        mLogin = findViewById(R.id.btnLogin);
+        mRememberMe = findViewById(R.id.cbRememberMe);
+        mRegister = findViewById(R.id.tvRegister);
+
         // Grab settings file
         settings = getApplicationContext().getSharedPreferences(LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
         // If it's new set remember user to false
@@ -42,17 +48,6 @@ public class LoginActivity extends AppCompatActivity {
             editor.putBoolean("rememberUser", false);
             editor.apply();
         }
-        // Transition immediately if remember me is true
-        if (settings.getBoolean("rememberUser", true)) {
-            Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
-            startActivity(intent);
-        }
-
-        mEmail = findViewById(R.id.etRegisterEmail);
-        mPassword = findViewById(R.id.etLoginPassword);
-        mLogin = findViewById(R.id.btnLogin);
-        mRememberMe = findViewById(R.id.cbRememberMe);
-        mRegister = findViewById(R.id.tvRegister);
 
         // Sets all the click listeners for this activity
         setOnClickListeners();
@@ -63,7 +58,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
+        if (currentUser != null) { // User is already signed in
+            Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
+            startActivity(intent);
+        }
     }
 
     private void setOnClickListeners() {
@@ -71,7 +69,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean correctCredentials = false;
-                // Code to check credentials goes here
 
                 if (correctCredentials) {
                     Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
