@@ -13,10 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class LoginActivity extends AppCompatActivity {
 
     private static final String LOGIN_SETTINGS_FILE_NAME = "login_settings";
     private SharedPreferences settings;
+    private FirebaseAuth mAuth;
 
     private EditText mEmail, mPassword;
     private Button mLogin;
@@ -27,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        mAuth = FirebaseAuth.getInstance();
 
         // Grab settings file
         settings = getApplicationContext().getSharedPreferences(LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
@@ -50,6 +56,14 @@ public class LoginActivity extends AppCompatActivity {
 
         // Sets all the click listeners for this activity
         setOnClickListeners();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
     }
 
     private void setOnClickListeners() {
