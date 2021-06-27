@@ -16,11 +16,10 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText mUsername, mFullname, mPassword, mConfirmation, mEmail;
+    private EditText mEmail, mPassword, mConfirmation;
     private Button mSubmit;
 
     private AwesomeValidation mValidator;
-    private final String regexUsername = "^.*[a-zA-Z0-9]+.*$";
     private final String regexPassword = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}";
 
     @Override
@@ -31,11 +30,10 @@ public class RegisterActivity extends AppCompatActivity {
         mValidator = new AwesomeValidation(ValidationStyle.BASIC);
         setValidator();
 
-        mUsername = findViewById(R.id.etRegisterUsername);
-        mFullname = findViewById(R.id.etFullname);
+        mEmail = findViewById(R.id.etRegisterEmail);
         mPassword = findViewById(R.id.etRegisterPassword);
         mConfirmation = findViewById(R.id.etPasswordConfirmation);
-        mEmail = findViewById(R.id.etEmail);
+
         mSubmit = findViewById(R.id.btnSubmit);
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +65,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void setValidator() {
-        mValidator.addValidation(this, R.id.etRegisterUsername, regexUsername, R.string.err_username);
+        mValidator.addValidation(this, R.id.etRegisterEmail, Patterns.EMAIL_ADDRESS, R.string.err_email);
         mValidator.addValidation(this, R.id.etRegisterPassword, regexPassword, R.string.err_password);
         mValidator.addValidation(this, R.id.etPasswordConfirmation, R.id.etRegisterPassword, R.string.err_password_confirmation);
-        mValidator.addValidation(this, R.id.etEmail, Patterns.EMAIL_ADDRESS, R.string.err_email);
     }
 }

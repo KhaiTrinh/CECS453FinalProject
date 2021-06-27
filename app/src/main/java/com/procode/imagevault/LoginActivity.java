@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     private static final String LOGIN_SETTINGS_FILE_NAME = "login_settings";
     private SharedPreferences settings;
 
-    private EditText mUsername, mPassword;
+    private EditText mEmail, mPassword;
     private Button mLogin;
     private CheckBox mRememberMe;
     private TextView mRegister;
@@ -42,10 +42,10 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
 
+        mEmail = findViewById(R.id.etRegisterEmail);
+        mPassword = findViewById(R.id.etLoginPassword);
         mLogin = findViewById(R.id.btnLogin);
         mRememberMe = findViewById(R.id.cbRememberMe);
-        mUsername = findViewById(R.id.etLoginUsername);
-        mPassword = findViewById(R.id.etLoginPassword);
         mRegister = findViewById(R.id.tvRegister);
 
         // Sets all the click listeners for this activity
