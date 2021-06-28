@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -43,6 +44,9 @@ public class VaultActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference databaseReference;
 
+    // Shared Preference
+    private SharedPreferences settings;
+
     // Components
     private FloatingActionButton fab;
     private ProgressBar progressBar;
@@ -56,14 +60,17 @@ public class VaultActivity extends AppCompatActivity {
         // Instantiate the Firebase Storage and Database
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
+        settings = getApplicationContext().getSharedPreferences(LoginActivity.LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
 
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         fab = findViewById(R.id.fabUpload);
-        fab.setOnClickListener(new View.OnClickListener(){
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -128,5 +135,10 @@ public class VaultActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    @Override
+    protected void onStop() {
+        boolean remember = settings.getBoolean("rememberUser", true);
+        if (!remember) FirebaseAuth.getInstance().signOut();
+        super.onStop();
     }
 }
