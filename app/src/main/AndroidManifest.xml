@@ -11,10 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name=".activities.VaultActivity"
-            android:label="@string/title_activity_vault"
-            android:theme="@style/NoActionBar"></activity>
+        <activity android:name=".activities.VaultActivity"></activity>
         <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity android:name=".activities.MainActivity">
