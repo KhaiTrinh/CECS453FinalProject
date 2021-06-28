@@ -59,13 +59,13 @@ public class VaultActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        if (LoginActivity.settings.getBoolean("rememberUser", false))
-//            FirebaseAuth.getInstance().signOut();
-//    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (LoginActivity.settings.getBoolean("rememberUser", false))
+            FirebaseAuth.getInstance().signOut();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
