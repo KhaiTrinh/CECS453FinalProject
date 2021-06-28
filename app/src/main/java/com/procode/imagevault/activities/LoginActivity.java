@@ -1,4 +1,4 @@
-package com.procode.imagevault;
+package com.procode.imagevault.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.procode.imagevault.R;
 
 public class LoginActivity extends AppCompatActivity {
 

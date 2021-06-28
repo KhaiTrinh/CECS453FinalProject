@@ -1,4 +1,4 @@
-package com.procode.imagevault;
+package com.procode.imagevault.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.procode.imagevault.R;
 
 public class RegisterActivity extends AppCompatActivity {
 

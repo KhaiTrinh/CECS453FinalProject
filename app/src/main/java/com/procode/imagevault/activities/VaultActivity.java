@@ -1,4 +1,4 @@
-package com.procode.imagevault;
+package com.procode.imagevault.activities;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.procode.imagevault.R;
 import com.procode.imagevault.databinding.ActivityVaultBinding;
 
 public class VaultActivity extends AppCompatActivity {
