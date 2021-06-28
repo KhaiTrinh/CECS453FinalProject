@@ -15,16 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        int SPLASH_TIME_OUT = 3000;
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
-
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
