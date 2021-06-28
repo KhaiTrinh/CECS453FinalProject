@@ -23,7 +23,7 @@ import com.procode.imagevault.R;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String LOGIN_SETTINGS_FILE_NAME = "login_settings";
+    public static final String LOGIN_SETTINGS_FILE_NAME = "login_settings";
     public static SharedPreferences settings;
     private FirebaseAuth mAuth;
 
@@ -58,18 +58,16 @@ public class LoginActivity extends AppCompatActivity {
         setOnClickListeners();
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null && settings.getBoolean("rememberUser", false)) { // User is already signed in
-//            FirebaseAuth.getInstance().signOut();
-//        } else if (currentUser != null && settings.getBoolean("rememberUser", true)) {
-//            Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
-//            startActivity(intent);
-//        }
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null && settings.getBoolean("rememberUser", true)) {
+            Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
+            startActivity(intent);
+        }
+    }
 
     private void setOnClickListeners() {
         mLogin.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +75,21 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
+
+                // Display error message if login email field is empty
+                if (email.isEmpty()) {
+                    mEmail.setError("This field cannot be empty");
+                    mEmail.requestFocus();
+                    return;
+                }
+
+                // Display error message if login password field is emtpy
+                if (password.isEmpty()) {
+                    mPassword.setError("This field cannot be empty");
+                    mPassword.requestFocus();
+                    return;
+                }
+
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
@@ -110,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putBoolean("rememberUser", isChecked);
                 editor.apply();
+                System.out.println("Remember User Set To: " + settings.getBoolean("rememberUser", true));
             }
         });
     }
