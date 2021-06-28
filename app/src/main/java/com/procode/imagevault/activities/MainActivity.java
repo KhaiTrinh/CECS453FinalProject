@@ -1,9 +1,11 @@
-package com.procode.imagevault;
+package com.procode.imagevault.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.procode.imagevault.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
         startActivity(intent);
     }
 }
