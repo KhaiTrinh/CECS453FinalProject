@@ -8,6 +8,8 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.procode.imagevault.R;
@@ -19,6 +21,8 @@ public class VaultActivity extends AppCompatActivity {
     // Firebase Related
     private FirebaseStorage storage;
     private StorageReference storageReference;
+    private FirebaseDatabase database;
+    private DatabaseReference databaseReference;
 
     // Components
     private FloatingActionButton fab;
@@ -28,6 +32,7 @@ public class VaultActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vault);
+        storage = FirebaseStorage.getInstance();
 
         fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener(){
