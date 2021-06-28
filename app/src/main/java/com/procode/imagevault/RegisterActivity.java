@@ -1,5 +1,6 @@
 package com.procode.imagevault;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -10,17 +11,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText mEmail, mPassword, mConfirmation;
     private Button mSubmit;
 
-    private AwesomeValidation mValidator;
     private final String regexPassword = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}";
+    private AwesomeValidation mValidator;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mValidator = new AwesomeValidation(ValidationStyle.BASIC);
-        setValidator();
+        mAuth = FirebaseAuth.getInstance();
+        setValidators();
 
         mEmail = findViewById(R.id.etRegisterEmail);
         mPassword = findViewById(R.id.etRegisterPassword);
@@ -39,10 +49,29 @@ public class RegisterActivity extends AppCompatActivity {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Code for adding credentials goes here
-
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                // Convert user inputs into Strings
+                String email = mEmail.getText().toString();
+                String password = mPassword.getText().toString();
+                if (mValidator.validate()) {
+                    mAuth.createUserWithEmailAndPassword(email, password)
+                            .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) {
+                                    Toast.makeText(RegisterActivity.this, "Account successfully created!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                                    startActivity(intent);
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    mEmail.getText().clear();
+                                    mPassword.getText().clear();
+                                    mConfirmation.getText().clear();
+                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
 
@@ -64,7 +93,7 @@ public class RegisterActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setValidator() {
+    private void setValidators() {
         mValidator.addValidation(this, R.id.etRegisterEmail, Patterns.EMAIL_ADDRESS, R.string.err_email);
         mValidator.addValidation(this, R.id.etRegisterPassword, regexPassword, R.string.err_password);
         mValidator.addValidation(this, R.id.etPasswordConfirmation, R.id.etRegisterPassword, R.string.err_password_confirmation);
