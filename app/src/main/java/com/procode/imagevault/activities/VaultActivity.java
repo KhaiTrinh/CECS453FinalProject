@@ -34,7 +34,7 @@ public class VaultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_vault);
         storage = FirebaseStorage.getInstance();
 
-        fab = findViewById(R.id.floatingActionButton);
+        fab = findViewById(R.id.fabUpload);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
