@@ -7,7 +7,7 @@ the current user's directory for images on
 the Firebase server.
 */
 
-package com.procode.imagevault.activities;
+package com.procode.imagevault.vault;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,13 +19,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import com.procode.imagevault.R;
+import com.procode.imagevault.profile.LoginActivity;
+import com.procode.imagevault.upload.UploadActivity;
 
 
 public class VaultActivity extends AppCompatActivity {

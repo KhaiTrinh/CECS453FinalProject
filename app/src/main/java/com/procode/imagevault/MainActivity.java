@@ -1,4 +1,4 @@
-package com.procode.imagevault.activities;
+package com.procode.imagevault;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.procode.imagevault.R;
+import com.procode.imagevault.profile.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 

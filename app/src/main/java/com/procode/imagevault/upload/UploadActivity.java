@@ -6,7 +6,7 @@ Description: This class handles image selection and
 image uploading to Firebase.
 */
 
-package com.procode.imagevault.activities;
+package com.procode.imagevault.upload;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,7 +37,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.procode.imagevault.R;
-import com.procode.imagevault.Upload;
+import com.procode.imagevault.vault.VaultActivity;
 
 public class UploadActivity extends AppCompatActivity {
 

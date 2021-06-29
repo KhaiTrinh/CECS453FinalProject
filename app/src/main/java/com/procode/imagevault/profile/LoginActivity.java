@@ -1,4 +1,4 @@
-package com.procode.imagevault.activities;
+package com.procode.imagevault.profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.procode.imagevault.R;
+import com.procode.imagevault.vault.VaultActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

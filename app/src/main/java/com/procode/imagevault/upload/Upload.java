@@ -6,7 +6,7 @@ Description: This class stores the name
 and url of the selected image.
 */
 
-package com.procode.imagevault;
+package com.procode.imagevault.upload;
 
 public class Upload {
     private String mName, mImageUrl;
