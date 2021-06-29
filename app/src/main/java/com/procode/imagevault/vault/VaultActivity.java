@@ -73,16 +73,4 @@ public class VaultActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    protected void onStop() {
-        boolean remember = mSettings.getBoolean("rememberUser", true);
-        if (!remember) {
-            FirebaseAuth.getInstance().signOut();
-            SharedPreferences.Editor editor = mSettings.edit();
-            editor.putBoolean("rememberUser", false);
-            editor.apply();
-        }
-        super.onStop();
-    }
 }

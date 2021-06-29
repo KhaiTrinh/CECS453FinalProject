@@ -163,7 +163,7 @@ public class UploadActivity extends AppCompatActivity {
                             String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
                             Upload upload = new Upload(name, url);
 
-                            // Creates a unique id for each item uploaded so nothing gets overriden
+                            // Creates a unique id for each item uploaded so nothing gets overridden
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
 
