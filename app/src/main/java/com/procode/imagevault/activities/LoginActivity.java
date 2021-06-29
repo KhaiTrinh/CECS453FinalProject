@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null && settings.getBoolean("rememberUser", true)) {
+        if (currentUser != null) {
             Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
             startActivity(intent);
         }
@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Display error message if login password field is emtpy
+                // Display error message if login password field is empty
                 if (password.isEmpty()) {
                     mPassword.setError("This field cannot be empty");
                     mPassword.requestFocus();
