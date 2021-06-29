@@ -16,11 +16,15 @@
     <string name="err_password">Password must contain uppercase, lowercase, numbers, special characters, and 8 character long</string>
     <string name="err_password_confirmation">Please re-type the password correctly</string>
 
-    <!-- Menu -->
-    <string name="menu_logout">Logout</string>
-
     <!-- Vault -->
     <string name="title_activity_vault">VaultActivity</string>
+    <string name="menu_logout">Logout</string>
+
+    <!-- Upload -->
+    <string name="browse">Browse</string>
+    <string name="back">Back to Gallery</string>
+    <string name="upload">Upload</string>
+    <string name="file_name_hint">Enter file name</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

@@ -31,7 +31,7 @@ public class VaultActivity extends AppCompatActivity {
 
         mSettings = getApplicationContext().getSharedPreferences(LoginActivity.LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.vaultToolbar);
+        Toolbar toolbar = findViewById(R.id.vaultToolbar);
         setSupportActionBar(toolbar);
 
         // Components
@@ -45,7 +45,7 @@ public class VaultActivity extends AppCompatActivity {
         });
 
         // To be deleted after testing
-        TextView mUserInfo = (TextView) findViewById(R.id.tvUserInfo);
+        TextView mUserInfo = findViewById(R.id.tvUserInfo);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String info = "Email: " + user.getEmail() + "\nUid: " + user.getUid();
         mUserInfo.setText(info);
