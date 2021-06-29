@@ -52,13 +52,6 @@ public class VaultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        // To be deleted after testing
-        TextView mUserInfo = findViewById(R.id.tvUserInfo);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String info = "Email: " + user.getEmail() + "\nUid: " + user.getUid();
-        mUserInfo.setText(info);
-        // To be deleted after testing
     }
 
     @Override
