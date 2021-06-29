@@ -2,6 +2,7 @@ package com.procode.imagevault.activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +11,8 @@ import android.net.Uri;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -50,12 +52,14 @@ public class VaultActivity extends AppCompatActivity {
     // Components
     private FloatingActionButton fab;
     private ProgressBar progressBar;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vault);
 
+        System.out.println("onCreate is called!");
 
         // Instantiate the Firebase Storage and Database
         storage = FirebaseStorage.getInstance();
@@ -69,32 +73,32 @@ public class VaultActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("rememberUser", false);
+                editor.apply();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
-    }
 
-    //Nikko: I'm thinking that we should have this here because the app stops when the user has to go to another app to get their image
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        if (LoginActivity.settings.getBoolean("rememberUser", false))
-//            FirebaseAuth.getInstance().signOut();
-//    }
+        toolbar = (Toolbar) findViewById(R.id.vaultToolbar);
+        setSupportActionBar(toolbar);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        System.out.println("onActivityResult is called!");
+
         //Detects Request Codes
-        if(requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK){
+        if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
             Bitmap bitmap = null;
-            try{
+            try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
                 byte[] image_data = baos.toByteArray();
 
                 // Stores the image under the path
@@ -129,16 +133,37 @@ public class VaultActivity extends AppCompatActivity {
                     }
                 });
 
-            }catch(FileNotFoundException e){
+            } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            }catch(IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
     @Override
-    protected void onStop() {
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_vault, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        System.out.println("onOptionsItemSelected is called");
+        if (item.getItemId() == R.id.logout) {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
         boolean remember = settings.getBoolean("rememberUser", true);
-        if (!remember) FirebaseAuth.getInstance().signOut();
-        super.onStop();
+        if (!remember)
+            FirebaseAuth.getInstance().signOut();
+        super.onDestroy();
     }
 }
