@@ -1,17 +1,26 @@
 <resources>
     <string name="app_name">Image Vault</string>
+
+    <!-- Login -->
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
-    <string name="password_confirmation_hint">Re-type Password</string>
+    <string name="cb_remember_me">Remember me</string>
     <string name="btn_login">Login</string>
+    <string name="tv_register"><u>Don\'t have an account? Register here!</u></string>
+
+    <!-- Register -->
+    <string name="password_confirmation_hint">Re-type Password</string>
     <string name="btn_submit">Submit</string>
-    <string name="cb_remember_me">Remember Me</string>
-    <string name="txt_register"><u>Don\'t have an account? Register</u></string>
+    <string name="tv_login"><u>Already have an account? Login here!</u></string>
     <string name="err_email">Invalid email address</string>
     <string name="err_password">Password must contain uppercase, lowercase, numbers, special characters, and 8 character long</string>
     <string name="err_password_confirmation">Please re-type the password correctly</string>
-    <string name="title_activity_vault">VaultActivity</string>
+
+    <!-- Menu -->
     <string name="menu_logout">Logout</string>
+
+    <!-- Vault -->
+    <string name="title_activity_vault">VaultActivity</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

@@ -24,7 +24,7 @@ import com.procode.imagevault.R;
 public class LoginActivity extends AppCompatActivity {
 
     public static final String LOGIN_SETTINGS_FILE_NAME = "login_settings";
-    public static SharedPreferences settings;
+    public static SharedPreferences mSettings;
     private FirebaseAuth mAuth;
 
     private EditText mEmail, mPassword;
@@ -38,10 +38,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         // Grab settings file
-        settings = getApplicationContext().getSharedPreferences(LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
+        mSettings = getApplicationContext().getSharedPreferences(LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
         // If it's new set remember user to false
-        if (!settings.contains("rememberUser")) {
-            SharedPreferences.Editor editor = settings.edit();
+        if (!mSettings.contains("rememberUser")) {
+            SharedPreferences.Editor editor = mSettings.edit();
             editor.putBoolean("rememberUser", false);
             editor.apply();
         }
@@ -120,10 +120,10 @@ public class LoginActivity extends AppCompatActivity {
         mRememberMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                SharedPreferences.Editor editor = settings.edit();
+                SharedPreferences.Editor editor = mSettings.edit();
                 editor.putBoolean("rememberUser", isChecked);
                 editor.apply();
-                System.out.println("Remember User Set To: " + settings.getBoolean("rememberUser", true));
+                System.out.println("Remember User Set To: " + mSettings.getBoolean("rememberUser", true));
             }
         });
     }

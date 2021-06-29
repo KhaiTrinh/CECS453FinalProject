@@ -7,14 +7,6 @@
     android:orientation="vertical"
     tools:context=".activities.RegisterActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/registerToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/toolbar"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -82,6 +74,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etPasswordConfirmation"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_top"
+                android:text="@string/tv_login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnSubmit" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
