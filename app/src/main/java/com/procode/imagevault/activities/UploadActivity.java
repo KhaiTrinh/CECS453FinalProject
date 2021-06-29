@@ -90,6 +90,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
+                finish();
                 startActivity(intent);
             }
         });
