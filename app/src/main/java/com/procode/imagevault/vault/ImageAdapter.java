@@ -11,10 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.procode.imagevault.R;
 import com.procode.imagevault.upload.Upload;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+
+    public class ImageViewHolder extends RecyclerView.ViewHolder {
+        public TextView textViewName;
+        public ImageView imageView;
+
+        public ImageViewHolder(View itemView) {
+            super(itemView);
+
+            textViewName = itemView.findViewById(R.id.tvImageName);
+            imageView = itemView.findViewById(R.id.ivImageHolder);
+        }
+    }
 
     private Context mContext;
     private List<Upload> mUploads;
@@ -29,26 +42,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void onBindViewHolder(ImageAdapter.ImageViewHolder holder, int position) {
         Upload uploadCurrent = mUploads.get(position);
         holder.textViewName.setText(uploadCurrent.getName());
-
-        
+        Picasso.get()
+                .load(uploadCurrent.getImageUrl())
+                .into(holder.imageView);
     }
 
     @Override
     public int getItemCount() {
         return mUploads.size();
     }
-
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
-        public TextView textViewName;
-        public ImageView imageView;
-
-        public ImageViewHolder(View itemView) {
-            super(itemView);
-
-            textViewName = itemView.findViewById(R.id.tvImageName);
-            imageView = itemView.findViewById(R.id.ivImageHolder);
-        }
-    }
-
-
 }
