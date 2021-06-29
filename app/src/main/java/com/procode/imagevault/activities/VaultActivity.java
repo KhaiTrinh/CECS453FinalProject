@@ -41,18 +41,18 @@ public class VaultActivity extends AppCompatActivity {
     private static final int GET_FROM_GALLERY = 1;
 
     // Firebase Related
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
-    private FirebaseDatabase database;
-    private DatabaseReference databaseReference;
+    private FirebaseStorage mStorage;
+    private StorageReference mStorageReference;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseReference;
 
     // Shared Preference
-    private SharedPreferences settings;
+    private SharedPreferences mSettings;
 
     // Components
-    private FloatingActionButton fab;
-    private ProgressBar progressBar;
-    private Toolbar toolbar;
+    private FloatingActionButton mFab;
+    private ProgressBar mProgressBar;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +62,18 @@ public class VaultActivity extends AppCompatActivity {
         System.out.println("onCreate is called!");
 
         // Instantiate the Firebase Storage and Database
-        storage = FirebaseStorage.getInstance();
-        database = FirebaseDatabase.getInstance();
-        settings = getApplicationContext().getSharedPreferences(LoginActivity.LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
+        mStorage = FirebaseStorage.getInstance();
+        mDatabase = FirebaseDatabase.getInstance();
+        mSettings = getApplicationContext().getSharedPreferences(LoginActivity.LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
 
-        progressBar = findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.INVISIBLE);
-        fab = findViewById(R.id.fabUpload);
-        fab.setOnClickListener(new View.OnClickListener() {
+        mProgressBar = findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mFab = findViewById(R.id.fabUpload);
+        mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                SharedPreferences.Editor editor = settings.edit();
+                SharedPreferences.Editor editor = mSettings.edit();
                 editor.putBoolean("rememberUser", false);
                 editor.apply();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
@@ -81,8 +81,8 @@ public class VaultActivity extends AppCompatActivity {
             }
         });
 
-        toolbar = (Toolbar) findViewById(R.id.vaultToolbar);
-        setSupportActionBar(toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.vaultToolbar);
+        setSupportActionBar(mToolbar);
     }
 
     @Override
@@ -103,15 +103,15 @@ public class VaultActivity extends AppCompatActivity {
 
                 // Stores the image under the path
                 String path = FirebaseAuth.getInstance().getUid() + "/" + UUID.randomUUID() + ".png";
-                storageReference = storage.getReference(path);
+                mStorageReference = mStorage.getReference(path);
 
                 //Uploads the image w/metadata to the Storage with the storage reference
-                UploadTask uploadTask = storageReference.putBytes(image_data);
+                UploadTask uploadTask = mStorageReference.putBytes(image_data);
                 uploadTask.addOnProgressListener(VaultActivity.this, new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(UploadTask.TaskSnapshot snapshot) {
-                        progressBar.setVisibility(View.VISIBLE);
-                        fab.setVisibility(View.INVISIBLE);
+                        mProgressBar.setVisibility(View.VISIBLE);
+                        mFab.setVisibility(View.INVISIBLE);
                         Toast.makeText(VaultActivity.this, "Image Uploading...Please Wait", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -119,8 +119,8 @@ public class VaultActivity extends AppCompatActivity {
                 uploadTask.addOnSuccessListener(VaultActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressBar.setVisibility(View.INVISIBLE);
-                        fab.setVisibility(View.VISIBLE);
+                        mProgressBar.setVisibility(View.INVISIBLE);
+                        mFab.setVisibility(View.VISIBLE);
                         Uri url = taskSnapshot.getUploadSessionUri();
                         Toast.makeText(VaultActivity.this, "Successfully Uploaded Image", Toast.LENGTH_LONG).show();
                     }
@@ -152,6 +152,9 @@ public class VaultActivity extends AppCompatActivity {
         System.out.println("onOptionsItemSelected is called");
         if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putBoolean("rememberUser", false);
+            editor.apply();
             Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             return true;
@@ -160,10 +163,15 @@ public class VaultActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        boolean remember = settings.getBoolean("rememberUser", true);
-        if (!remember)
+    protected void onStop() {
+        boolean remember = mSettings.getBoolean("rememberUser", true);
+        System.out.println("Remember on stop: " + remember);
+        if (!remember) {
             FirebaseAuth.getInstance().signOut();
-        super.onDestroy();
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putBoolean("rememberUser", false);
+            editor.apply();
+        }
+        super.onStop();
     }
 }
