@@ -1,3 +1,12 @@
+/*
+CECS 453-01 Final Project
+Authors: Nikko Chan & Khai Trinh
+Due Date: July 1, 2021
+Description: This class display the images inside
+the current user's directory for images on
+the Firebase server.
+*/
+
 package com.procode.imagevault.activities;
 
 import androidx.annotation.NonNull;

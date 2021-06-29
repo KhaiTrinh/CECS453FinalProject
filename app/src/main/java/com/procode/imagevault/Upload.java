@@ -1,3 +1,11 @@
+/*
+CECS 453-01 Final Project
+Authors: Nikko Chan & Khai Trinh
+Due Date: July 1, 2021
+Description: This class stores the name
+and url of the selected image.
+*/
+
 package com.procode.imagevault;
 
 public class Upload {

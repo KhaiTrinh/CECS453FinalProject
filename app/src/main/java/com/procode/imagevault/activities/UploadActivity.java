@@ -1,3 +1,11 @@
+/*
+CECS 453-01 Final Project
+Authors: Nikko Chan & Khai Trinh
+Due Date: July 1, 2021
+Description: This class handles image selection and
+image uploading to Firebase.
+*/
+
 package com.procode.imagevault.activities;
 
 import androidx.annotation.NonNull;
@@ -46,6 +54,7 @@ public class UploadActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
 
+    private String mDirectoryName;
     private StorageTask mUploadTask;
 
     @Override
@@ -62,12 +71,13 @@ public class UploadActivity extends AppCompatActivity {
         setClickListeners();
 
         // Directory for images will be the unique id of each user
-        String mDirectoryName = "images/" + FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mDirectoryName = "images/" + FirebaseAuth.getInstance().getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference(mDirectoryName);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(mDirectoryName);
     }
 
     private void setClickListeners() {
+        // Browse the image folder for any images
         mBrowse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,17 +85,18 @@ public class UploadActivity extends AppCompatActivity {
             }
         });
 
+        // Upload the chosen file
         mUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Prevents user from spamming upload button if process not yet complete
-                if (mUploadTask != null && mUploadTask.isInProgress()) {
+                if (mUploadTask != null && mUploadTask.isInProgress())
                     Toast.makeText(UploadActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
-                }
                 uploadFile();
             }
         });
 
+        // Go back to Vault Activity
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,11 +135,15 @@ public class UploadActivity extends AppCompatActivity {
     }
 
     private void uploadFile() {
+        // Make sure image uri is not null before continuing
         if (mImageUri != null) {
             // Using the system time to create a random name for the image file
+            // And then attaching the extension to the end of the name
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
             + "." + getFileExtension(mImageUri));
 
+            // Variable mUploadTask can retrieve the progress of this function
+            // Below are listeners for success, failure, and in progress for the file upload
             mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -143,13 +158,16 @@ public class UploadActivity extends AppCompatActivity {
                                 }
                             }, 500);
 
-                            Toast.makeText(UploadActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
-                            Upload upload = new Upload(mFilename.getText().toString().trim(),
-                                    taskSnapshot.getMetadata().getReference().getDownloadUrl().toString());
+                            // Sets the file info for uploading
+                            String name = mFilename.getText().toString().trim();
+                            String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
+                            Upload upload = new Upload(name, url);
 
-                            // Creates a unique id for each item uploaded
+                            // Creates a unique id for each item uploaded so nothing gets overriden
                             String uploadId = mDatabaseRef.push().getKey();
                             mDatabaseRef.child(uploadId).setValue(upload);
+
+                            Toast.makeText(UploadActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -161,6 +179,7 @@ public class UploadActivity extends AppCompatActivity {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                            // Calculate percentage of completion for display
                             double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
                             mProgressBar.setProgress((int) progress);
                         }
