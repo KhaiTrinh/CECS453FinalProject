@@ -63,9 +63,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
+        if (currentUser != null && mSettings.getBoolean("rememberUser", true)) {
             Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
             startActivity(intent);
+        } else if (currentUser != null && mSettings.getBoolean("rememberUser", false)) {
+            FirebaseAuth.getInstance().signOut();
         }
     }
 
