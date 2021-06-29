@@ -27,7 +27,6 @@ import com.procode.imagevault.R;
 import com.procode.imagevault.profile.LoginActivity;
 import com.procode.imagevault.upload.UploadActivity;
 
-
 public class VaultActivity extends AppCompatActivity {
 
     // Shared Preference
