@@ -11,7 +11,7 @@
         android:id="@+id/uploadToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/navy"
+        android:background="@color/primary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -24,7 +24,8 @@
             android:id="@+id/btnBrowse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/browse"/>
+            android:text="@string/browse"
+            android:backgroundTint="@color/secondary"/>
 
         <EditText
             android:id="@+id/etFileName"
@@ -58,7 +59,8 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/default_margin"
-            android:text="@string/upload" />
+            android:text="@string/upload"
+            android:backgroundTint="@color/secondary"/>
 
         <TextView
             android:id="@+id/tvBack"

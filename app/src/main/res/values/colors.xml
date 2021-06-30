@@ -7,7 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="splash_yellow">#FFF952</color>
     <color name="navy">#053742</color>
     <color name="btn_color">#BD551C</color>
+
+<!--    Color Compatibility-->
+    <color name="primary">#DEAD0B</color>
+    <color name="secondary">#F5D501</color>
 </resources>
