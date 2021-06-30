@@ -1,14 +1,23 @@
 package com.procode.imagevault.vault;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.procode.imagevault.R;
 import com.procode.imagevault.upload.Upload;
 import com.squareup.picasso.Picasso;
@@ -23,7 +32,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-
             textViewName = itemView.findViewById(R.id.tvImageName);
             imageView = itemView.findViewById(R.id.ivImageHolder);
         }
@@ -47,9 +55,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void onBindViewHolder(ImageAdapter.ImageViewHolder holder, int position) {
         Upload uploadCurrent = mUploads.get(position);
         holder.textViewName.setText(uploadCurrent.getName());
-        Picasso.get()
-                .load(uploadCurrent.getImageUrl())
-                .into(holder.imageView);
+        
     }
 
     @Override

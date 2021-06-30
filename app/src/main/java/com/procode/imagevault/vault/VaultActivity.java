@@ -78,7 +78,6 @@ public class VaultActivity extends AppCompatActivity {
                 }
 
                 mAdapter = new ImageAdapter(VaultActivity.this, mUploads);
-
                 mRecyclerView.setAdapter(mAdapter);
             }
 
