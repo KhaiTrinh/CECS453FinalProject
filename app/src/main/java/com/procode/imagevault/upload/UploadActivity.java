@@ -160,12 +160,16 @@ public class UploadActivity extends AppCompatActivity {
 
                             // Sets the file info for uploading
                             String name = mFilename.getText().toString().trim();
-                            String url = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                            Upload upload = new Upload(name, url);
-
-                            // Creates a unique id for each item uploaded so nothing gets overridden
-                            String uploadId = mDatabaseRef.push().getKey();
-                            mDatabaseRef.child(uploadId).setValue(upload);
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    Upload upload = new Upload(name, url);
+                                    // Creates a unique id for each item uploaded so nothing gets overridden
+                                    String uploadId = mDatabaseRef.push().getKey();
+                                    mDatabaseRef.child(uploadId).setValue(upload);
+                                }
+                            });
 
                             Toast.makeText(UploadActivity.this, "Upload successful", Toast.LENGTH_SHORT).show();
                         }
