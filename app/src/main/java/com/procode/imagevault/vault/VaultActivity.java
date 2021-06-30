@@ -38,7 +38,7 @@ import com.procode.imagevault.upload.UploadActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VaultActivity extends AppCompatActivity {
+public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
 
     private SharedPreferences mSettings;
 
@@ -76,7 +76,10 @@ public class VaultActivity extends AppCompatActivity {
                 }
 
                 mAdapter = new ImageAdapter(VaultActivity.this, mUploads);
+
                 mRecyclerView.setAdapter(mAdapter);
+
+                mAdapter.setOnItemClickListener(VaultActivity.this);
             }
 
             @Override
@@ -93,6 +96,16 @@ public class VaultActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(this, "Normal click at position: " + position, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDeleteClick(int position) {
+        Toast.makeText(this, "Delete click at position: " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override
