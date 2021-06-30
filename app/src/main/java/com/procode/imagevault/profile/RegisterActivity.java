@@ -1,6 +1,13 @@
+/*
+CECS 453-01 Final Project
+Authors: Nikko Chan & Khai Trinh
+Due Date: July 1, 2021
+Description: This class handles account creation
+for Firebase Authenticator.
+*/
+
 package com.procode.imagevault.profile;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -34,10 +41,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        // Awesome validator
         mValidator = new AwesomeValidation(ValidationStyle.BASIC);
         mAuth = FirebaseAuth.getInstance();
         setValidators();
 
+        // Components
         mEmail = findViewById(R.id.etRegisterEmail);
         mPassword = findViewById(R.id.etRegisterPassword);
         mConfirmation = findViewById(R.id.etPasswordConfirmation);
@@ -46,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         setClickListeners();
     }
 
+    // Sets the listeners for all clickable components
     private void setClickListeners() {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +63,10 @@ public class RegisterActivity extends AppCompatActivity {
                 // Convert user inputs into Strings
                 String email = mEmail.getText().toString();
                 String password = mPassword.getText().toString();
+
+                // Continue when validator approves of all inputted fields
                 if (mValidator.validate()) {
+                    // Add user to the Firebase server
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                                 @Override
@@ -65,7 +78,8 @@ public class RegisterActivity extends AppCompatActivity {
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
-                                public void onFailure(@NonNull Exception e) {
+                                public void onFailure(Exception e) {
+                                    // Clear all fields when account creation fails
                                     mEmail.getText().clear();
                                     mPassword.getText().clear();
                                     mConfirmation.getText().clear();
@@ -85,6 +99,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    // Set the validators for Awesome Validator
     private void setValidators() {
         String regexPassword = "(?=.*[a-z])(?=.*[A-Z])(?=.*[\\d])(?=.*[~`!@#\\$%\\^&\\*\\(\\)\\-_\\+=\\{\\}\\[\\]\\|\\;:\"<>,./\\?]).{8,}";
         mValidator.addValidation(this, R.id.etRegisterEmail, Patterns.EMAIL_ADDRESS, R.string.err_email);

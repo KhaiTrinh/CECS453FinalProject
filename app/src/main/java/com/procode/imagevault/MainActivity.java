@@ -1,3 +1,11 @@
+/*
+CECS 453-01 Final Project
+Authors: Nikko Chan & Khai Trinh
+Due Date: July 1, 2021
+Description: Handles the splash screen and
+transitioning to the Login activity.
+*/
+
 package com.procode.imagevault;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,7 +14,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.procode.imagevault.R;
 import com.procode.imagevault.profile.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {

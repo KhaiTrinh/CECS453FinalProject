@@ -1,23 +1,22 @@
+/*
+CECS 453-01 Final Project
+Authors: Nikko Chan & Khai Trinh
+Due Date: July 1, 2021
+Description: Custom adapter for the recycler view
+of Upload objects.
+*/
+
 package com.procode.imagevault.vault;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.procode.imagevault.R;
 import com.procode.imagevault.upload.Upload;
 import com.squareup.picasso.Picasso;
@@ -55,7 +54,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void onBindViewHolder(ImageAdapter.ImageViewHolder holder, int position) {
         Upload uploadCurrent = mUploads.get(position);
         holder.textViewName.setText(uploadCurrent.getName());
-        System.out.println("URL: " + uploadCurrent.getImageUrl());
         Picasso.get()
                 .load(uploadCurrent.getImageUrl())
                 .fit()

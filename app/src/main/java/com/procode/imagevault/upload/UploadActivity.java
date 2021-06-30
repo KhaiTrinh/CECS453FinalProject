@@ -8,8 +8,6 @@ image uploading to Firebase.
 
 package com.procode.imagevault.upload;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
@@ -55,7 +53,6 @@ public class UploadActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabaseRef;
 
-    private String mDirectoryName;
     private StorageTask mUploadTask;
 
     @Override
@@ -63,6 +60,7 @@ public class UploadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
+        // Components
         mBrowse = findViewById(R.id.btnBrowse);
         mUpload = findViewById(R.id.btnUpload);
         mBack = findViewById(R.id.tvBack);
@@ -72,11 +70,12 @@ public class UploadActivity extends AppCompatActivity {
         setClickListeners();
 
         // Directory for images will be the unique id of each user
-        mDirectoryName = "images/" + FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String mDirectoryName = "images/" + FirebaseAuth.getInstance().getCurrentUser().getUid();
         mStorageRef = FirebaseStorage.getInstance().getReference(mDirectoryName);
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(mDirectoryName);
     }
 
+    // Sets the listeners for all clickable components
     private void setClickListeners() {
         // Browse the image folder for any images
         mBrowse.setOnClickListener(new View.OnClickListener() {
@@ -110,14 +109,12 @@ public class UploadActivity extends AppCompatActivity {
 
     // Search for every file in the image folder
     private void openFileChooser() {
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_PICK);
-        startActivityForResult(new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI), PICK_IMAGE_REQUEST);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Make sure the user picked something and that something is not null
@@ -164,6 +161,7 @@ public class UploadActivity extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
+                                    // Grab the download URL of the file
                                     String url = uri.toString();
                                     Upload upload = new Upload(name, url);
                                     // Creates a unique id for each item uploaded so nothing gets overridden
@@ -177,13 +175,13 @@ public class UploadActivity extends AppCompatActivity {
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
+                        public void onFailure(Exception e) {
                             Toast.makeText(UploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
-                        public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                        public void onProgress(UploadTask.TaskSnapshot snapshot) {
                             // Calculate percentage of completion for display
                             double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
                             mProgressBar.setProgress((int) progress);

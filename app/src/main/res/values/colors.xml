@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="splash_yellow">#FFF952</color>
     <color name="navy">#053742</color>
+    <color name="btn_color">#BD551C</color>
 </resources>

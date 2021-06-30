@@ -1,6 +1,13 @@
+/*
+CECS 453-01 Final Project
+Authors: Nikko Chan & Khai Trinh
+Due Date: July 1, 2021
+Description: This class handles account sign-in
+with Firebase Authenticator and Awesome Validator.
+*/
+
 package com.procode.imagevault.profile;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -38,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Grab settings file
+        // Grab local settings file
         mSettings = getApplicationContext().getSharedPreferences(LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
         // If it's new set remember user to false
         if (!mSettings.contains("rememberUser")) {
@@ -49,13 +56,12 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        // Components
         mEmail = findViewById(R.id.etLoginEmail);
         mPassword = findViewById(R.id.etLoginPassword);
         mLogin = findViewById(R.id.btnLogin);
         mRememberMe = findViewById(R.id.cbRememberMe);
         mRegister = findViewById(R.id.tvRegister);
-
-        // Sets all the click listeners for this activity
         setOnClickListeners();
     }
 
@@ -64,14 +70,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        // Keep user signed in if local setting is set to true
         if (currentUser != null && mSettings.getBoolean("rememberUser", true)) {
             Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
             startActivity(intent);
+        // Sign out user if local setting is set to false
         } else if (currentUser != null && mSettings.getBoolean("rememberUser", false)) {
             FirebaseAuth.getInstance().signOut();
         }
     }
 
+    // Sets the listeners for all clickable components
     private void setOnClickListeners() {
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +102,9 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
+                // Login user to Firebase authentication
+                // Switch to Vault Activity when sign-in is successful
+                // Clear password field when information is incorrect and display error message
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                             @Override
@@ -103,10 +115,10 @@ public class LoginActivity extends AppCompatActivity {
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
-                            public void onFailure(@NonNull Exception e) {
+                            public void onFailure(Exception e) {
                                 // Clear password field if entered information is incorrect
                                 mPassword.getText().clear();
-                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         });
             }
@@ -123,10 +135,10 @@ public class LoginActivity extends AppCompatActivity {
         mRememberMe.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                // Ensures the local setting matches the checkbox
                 SharedPreferences.Editor editor = mSettings.edit();
                 editor.putBoolean("rememberUser", isChecked);
                 editor.apply();
-                System.out.println("Remember User Set To: " + mSettings.getBoolean("rememberUser", true));
             }
         });
     }

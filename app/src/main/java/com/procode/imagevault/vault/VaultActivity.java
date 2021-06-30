@@ -9,7 +9,6 @@ the Firebase server.
 
 package com.procode.imagevault.vault;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,7 +40,6 @@ import java.util.List;
 
 public class VaultActivity extends AppCompatActivity {
 
-    // Shared Preference
     private SharedPreferences mSettings;
 
     private RecyclerView mRecyclerView;
@@ -72,6 +69,7 @@ public class VaultActivity extends AppCompatActivity {
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                // Loop through all the files on Firebase database
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Upload upload = postSnapshot.getValue(Upload.class);
                     mUploads.add(upload);
@@ -87,7 +85,6 @@ public class VaultActivity extends AppCompatActivity {
             }
         });
 
-        // Components
         FloatingActionButton fab = findViewById(R.id.fabUpload);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,12 +97,15 @@ public class VaultActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu
         getMenuInflater().inflate(R.menu.menu_vault, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Logs out the user and sets the local setting to false again
+        // Migrate back to the Login activity
         if (item.getItemId() == R.id.logout) {
             FirebaseAuth.getInstance().signOut();
             SharedPreferences.Editor editor = mSettings.edit();

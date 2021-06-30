@@ -14,6 +14,7 @@ public class Upload {
     public Upload() {}
 
     public Upload(String name, String imageUrl) {
+        // Default name will be Untitled
         if (name.trim().equals("")) name = "Untitled";
 
         mName = name;
