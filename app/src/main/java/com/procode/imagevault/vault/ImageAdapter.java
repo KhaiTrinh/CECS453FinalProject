@@ -73,17 +73,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
 
         @Override
-        public void onClick(View view) {
-            if (mListener != null) {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    mListener.onItemClick(position);
-                }
-            }
-        }
-
-        @Override
         public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
+            // Create the menu when selecting an image
             menu.setHeaderTitle("Select Action");
             MenuItem delete = menu.add(menu.NONE, 1, 1, "Delete");
 
@@ -91,11 +82,27 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
 
         @Override
-        public boolean onMenuItemClick(MenuItem item) {
+        public void onClick(View view) {
             if (mListener != null) {
                 int position = getAdapterPosition();
                 if (position != RecyclerView.NO_POSITION) {
+
+                    // Send position to VaultActivity
+                    mListener.onItemClick(position);
+                }
+            }
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            if (mListener != null) {
+                int position = getAdapterPosition();
+
+                // Check if an item from the recycler view was selected
+                if (position != RecyclerView.NO_POSITION) {
                     if (item.getItemId() == 1) {
+                        // Set to delete the image at the selected position
+                        // Send position to Vault Activity
                         mListener.onDeleteClick(position);
                         return true;
                     }
@@ -107,6 +114,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     public interface OnItemClickListener {
         void onItemClick(int position); // For single clicks
+
         void onDeleteClick(int position); // For held-down clicks
     }
 

@@ -115,7 +115,7 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
 
     @Override
     public void onItemClick(int position) {
-
+        // Just here for testing purposes only
     }
 
     @Override
@@ -128,6 +128,8 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
+
+                        // Remove the from the database after image deletion from the storage
                         mDatabaseRef.child(selectedKey).removeValue();
                         Toast.makeText(VaultActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
                     }
@@ -160,6 +162,7 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         // Prevents ValueEventListeners to stack up every time we return to this activity
         mDatabaseRef.removeEventListener(mVEListener);
     }

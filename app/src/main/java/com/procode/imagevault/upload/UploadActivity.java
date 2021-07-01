@@ -82,6 +82,8 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openFileChooser();
+
+                // Clear the name field when a new image is selected for uploading
                 mFilename.getText().clear();
             }
         });
@@ -102,7 +104,6 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), VaultActivity.class);
-                finish();
                 startActivity(intent);
             }
         });
@@ -121,6 +122,8 @@ public class UploadActivity extends AppCompatActivity {
         // Make sure the user picked something and that something is not null
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
+
+            // Grab the image URI and set the ImageView to display the image before uploading
             mImageUri = data.getData();
             mPreview.setImageURI(mImageUri);
         }
@@ -136,6 +139,7 @@ public class UploadActivity extends AppCompatActivity {
     private void uploadFile() {
         // Make sure image uri is not null before continuing
         if (mImageUri != null) {
+
             // Using the system time to create a random name for the image file
             // And then attaching the extension to the end of the name
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()
@@ -159,12 +163,15 @@ public class UploadActivity extends AppCompatActivity {
 
                             // Sets the file info for uploading
                             String name = mFilename.getText().toString().trim();
+
+                            // This retrieves the downloadable URL for the image that was just uploaded
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     // Grab the download URL of the file
                                     String url = uri.toString();
                                     Upload upload = new Upload(name, url);
+
                                     // Creates a unique id for each item uploaded so nothing gets overridden
                                     String uploadId = mDatabaseRef.push().getKey();
                                     mDatabaseRef.child(uploadId).setValue(upload);
@@ -183,6 +190,7 @@ public class UploadActivity extends AppCompatActivity {
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(UploadTask.TaskSnapshot snapshot) {
+
                             // Calculate percentage of completion for display
                             double progress = (100.0 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
                             mProgressBar.setProgress((int) progress);
