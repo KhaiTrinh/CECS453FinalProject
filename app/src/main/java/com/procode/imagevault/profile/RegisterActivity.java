@@ -83,7 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     mEmail.getText().clear();
                                     mPassword.getText().clear();
                                     mConfirmation.getText().clear();
-                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             });
                 }
