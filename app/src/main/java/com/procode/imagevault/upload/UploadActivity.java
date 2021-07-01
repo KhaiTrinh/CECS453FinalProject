@@ -9,6 +9,7 @@ image uploading to Firebase.
 package com.procode.imagevault.upload;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.Window;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -59,6 +61,10 @@ public class UploadActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
+
+        //Change the color of the status bar
+        Window window = this.getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.secondary));
 
         // Components
         mBrowse = findViewById(R.id.btnBrowse);

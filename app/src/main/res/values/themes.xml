@@ -17,6 +17,7 @@
     <style name="NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/secondary</item>
     </style>
 
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

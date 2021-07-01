@@ -22,7 +22,8 @@
         <ImageView
             android:id="@+id/ivImageHolder"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
             android:src="@drawable/banner"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>

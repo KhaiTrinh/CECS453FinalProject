@@ -11,6 +11,7 @@ package com.procode.imagevault.vault;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +21,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -59,6 +61,10 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vault);
 
+        //Change the color of the status bar
+        Window window = this.getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.secondary));
+        
         mSettings = getApplicationContext().getSharedPreferences(LoginActivity.LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);
 
         Toolbar toolbar = findViewById(R.id.vaultToolbar);

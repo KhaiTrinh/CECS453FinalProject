@@ -9,11 +9,13 @@ for Firebase Authenticator.
 package com.procode.imagevault.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -40,6 +42,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        //Change the color of the status bar
+        Window window = this.getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.secondary));
 
         // Awesome validator
         mValidator = new AwesomeValidation(ValidationStyle.BASIC);

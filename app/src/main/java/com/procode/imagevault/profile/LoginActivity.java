@@ -9,11 +9,13 @@ with Firebase Authenticator and Awesome Validator.
 package com.procode.imagevault.profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -44,6 +46,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //Change the color of the status bar
+        Window window = this.getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.secondary));
 
         // Grab local settings file
         mSettings = getApplicationContext().getSharedPreferences(LOGIN_SETTINGS_FILE_NAME, MODE_PRIVATE);

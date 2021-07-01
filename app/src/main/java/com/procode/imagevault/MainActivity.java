@@ -9,10 +9,12 @@ transitioning to the Login activity.
 package com.procode.imagevault;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
 
 import com.procode.imagevault.profile.LoginActivity;
 
@@ -23,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        Window window = this.getWindow();
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.secondary));
 
         new Handler().postDelayed(new Runnable(){
 
