@@ -15,7 +15,7 @@
     <dimen name="big_logo_width">500dp</dimen>
     <dimen name="big_margin_from_logo">250dp</dimen>
 
-    <dimen name="big_text_size">24sp</dimen>
+    <dimen name="big_text_size">30sp</dimen>
     <dimen name="big_btn_text_size">20sp</dimen>
 
     <dimen name="big_compnent_height"> 75dp </dimen>
