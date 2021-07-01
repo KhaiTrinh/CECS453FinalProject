@@ -18,4 +18,7 @@
     <dimen name="big_text_size">24sp</dimen>
     <dimen name="big_btn_text_size">20sp</dimen>
 
+    <dimen name="big_compnent_height"> 75dp </dimen>
+    <dimen name="big_button_width">250dp</dimen>
+
 </resources>

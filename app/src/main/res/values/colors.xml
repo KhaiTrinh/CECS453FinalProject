@@ -11,6 +11,6 @@
     <color name="btn_color">#BD551C</color>
 
 <!--    Color Compatibility-->
-    <color name="primary">#DEAD0B</color>
-    <color name="secondary">#F5D501</color>
+    <color name="secondary">#F5C40A</color>
+<!--    <color name="secondary">#F5C40A</color>-->
 </resources>

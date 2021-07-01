@@ -11,7 +11,7 @@
         android:id="@+id/uploadToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
+        android:background="@color/secondary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -22,18 +22,20 @@
 
         <Button
             android:id="@+id/btnBrowse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/big_button_width"
+            android:layout_height="@dimen/big_compnent_height"
+            android:backgroundTint="@color/secondary"
             android:text="@string/browse"
-            android:backgroundTint="@color/secondary"/>
+            android:textSize="@dimen/big_btn_text_size" />
 
         <EditText
             android:id="@+id/etFileName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/big_compnent_height"
+            android:layout_marginStart="@dimen/default_margin"
             android:layout_toEndOf="@+id/btnBrowse"
             android:hint="@string/file_name_hint"
-            android:layout_marginStart="@dimen/default_margin"/>
+            android:textSize="@dimen/big_text_size" />
 
         <ImageView
             android:id="@+id/ivPreview"
@@ -54,25 +56,26 @@
 
         <Button
             android:id="@+id/btnUpload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/big_button_width"
+            android:layout_height="@dimen/big_compnent_height"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/default_margin"
+            android:backgroundTint="@color/secondary"
             android:text="@string/upload"
-            android:backgroundTint="@color/secondary"/>
+            android:textSize="@dimen/big_btn_text_size" />
 
         <TextView
             android:id="@+id/tvBack"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/btnUpload"
+            android:layout_height="@dimen/big_compnent_height"
             android:layout_alignTop="@id/btnUpload"
+            android:layout_alignBottom="@+id/btnUpload"
             android:layout_marginStart="@dimen/default_margin"
             android:layout_toEndOf="@id/btnUpload"
+            android:gravity="center"
             android:text="@string/back"
-            android:textSize="16sp"
-            android:gravity="center" />
+            android:textSize="@dimen/big_text_size" />
 
     </RelativeLayout>
 
