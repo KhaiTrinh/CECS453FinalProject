@@ -46,6 +46,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void onBindViewHolder(ImageAdapter.ImageViewHolder holder, int position) {
         Upload uploadCurrent = mUploads.get(position);
         holder.textViewName.setText(uploadCurrent.getName());
+
         Picasso.get()
                 .load(uploadCurrent.getImageUrl())
                 .fit()
@@ -60,6 +61,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
             View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+
         public TextView textViewName;
         public ImageView imageView;
 
