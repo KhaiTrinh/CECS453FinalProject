@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -30,6 +31,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.procode.imagevault.R;
 import com.procode.imagevault.profile.LoginActivity;
 import com.procode.imagevault.upload.Upload;
@@ -45,7 +48,10 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
 
+    private FirebaseStorage mStorage;
     private DatabaseReference mDatabaseRef;
+    private ValueEventListener mVEListener;
+
     private List<Upload> mUploads;
 
     @Override
@@ -64,22 +70,31 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
 
         mUploads = new ArrayList<>();
 
+        mAdapter = new ImageAdapter(VaultActivity.this, mUploads);
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(VaultActivity.this);
+
         String path = "images/" + FirebaseAuth.getInstance().getCurrentUser().getUid();
+        mStorage = FirebaseStorage.getInstance();
         mDatabaseRef = FirebaseDatabase.getInstance().getReference(path);
-        mDatabaseRef.addValueEventListener(new ValueEventListener() {
+
+        mVEListener = mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+
+                // This prevents duplicate entries when user press return
+                // to gallery before the upload process is complete
+                mUploads.clear();
+
                 // Loop through all the files on Firebase database
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Upload upload = postSnapshot.getValue(Upload.class);
+                    // This key will be used to identify the image set for deletion
+                    upload.setKey(postSnapshot.getKey());
                     mUploads.add(upload);
                 }
 
-                mAdapter = new ImageAdapter(VaultActivity.this, mUploads);
-
-                mRecyclerView.setAdapter(mAdapter);
-
-                mAdapter.setOnItemClickListener(VaultActivity.this);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -100,12 +115,23 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(this, "Normal click at position: " + position, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public void onDeleteClick(int position) {
-        Toast.makeText(this, "Delete click at position: " + position, Toast.LENGTH_SHORT).show();
+        Upload selectedItem = mUploads.get(position);
+        String selectedKey = selectedItem.getKey();
+
+        StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
+        imageRef.delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        mDatabaseRef.child(selectedKey).removeValue();
+                        Toast.makeText(VaultActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -129,5 +155,12 @@ public class VaultActivity extends AppCompatActivity implements ImageAdapter.OnI
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Prevents ValueEventListeners to stack up every time we return to this activity
+        mDatabaseRef.removeEventListener(mVEListener);
     }
 }

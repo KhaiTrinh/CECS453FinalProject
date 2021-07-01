@@ -82,6 +82,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openFileChooser();
+                mFilename.getText().clear();
             }
         });
 
