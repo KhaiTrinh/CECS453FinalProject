@@ -33,10 +33,10 @@
             android:backgroundTint="@color/secondary"
             android:clickable="true"
             android:orientation="vertical"
-            app:fabCustomSize="150dp"
+            app:fabCustomSize="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="60dp"
+            app:maxImageSize="50dp"
             app:srcCompat="@drawable/ic_add_sign" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
