@@ -5,12 +5,12 @@
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
     <string name="cb_remember_me">Remember me</string>
-    <string name="btn_login">Login</string>
+    <string name="btn_login"><b>Login</b></string>
     <string name="tv_register"><u>Don\'t have an account? Register here!</u></string>
 
     <!-- Register -->
     <string name="password_confirmation_hint">Re-type Password</string>
-    <string name="btn_submit">Submit</string>
+    <string name="btn_submit"><b>Submit</b></string>
     <string name="tv_login"><u>Already have an account? Login here!</u></string>
     <string name="err_email">Invalid email address</string>
     <string name="err_password">Password must contain uppercase, lowercase, numbers, special characters, and 8 character long</string>

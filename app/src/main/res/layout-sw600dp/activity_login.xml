@@ -19,22 +19,22 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="@dimen/logo_width"
-                android:layout_height="@dimen/logo_height"
+                android:layout_width="@dimen/big_logo_width"
+                android:layout_height="@dimen/big_logo_height"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/guideline6"
-                app:srcCompat="@drawable/banner"
-                tools:layout_editor_absoluteY="20dp"/>
+                app:srcCompat="@drawable/banner" />
 
             <EditText
                 android:id="@+id/etLoginEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_from_logo"
+                android:layout_marginTop="@dimen/big_margin_from_logo"
                 android:ems="10"
                 android:hint="@string/email_hint"
                 android:inputType="textEmailAddress"
+                android:textSize="@dimen/big_text_size"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toTopOf="@+id/logo" />
@@ -47,6 +47,7 @@
                 android:ems="10"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
+                android:textSize="@dimen/big_text_size"
                 app:layout_constraintEnd_toStartOf="@+id/guideline5"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toBottomOf="@+id/etLoginEmail" />
@@ -57,18 +58,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top"
                 android:text="@string/cb_remember_me"
+                android:textSize="@dimen/big_text_size"
                 app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toBottomOf="@+id/etLoginPassword" />
 
             <Button
                 android:id="@+id/btnLogin"
-                android:layout_width="@dimen/login_btn_width"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/login_btn_margin_top"
-                android:text="@string/btn_login"
                 android:backgroundTint="@color/secondary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/btn_login"
+                android:textSize="@dimen/big_btn_text_size"
+                app:layout_constraintEnd_toStartOf="@+id/guideline5"
+                app:layout_constraintStart_toStartOf="@+id/guideline4"
                 app:layout_constraintTop_toBottomOf="@+id/cbRememberMe" />
 
             <TextView
@@ -77,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_top"
                 android:text="@string/tv_register"
+                android:textSize="@dimen/big_text_size"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
