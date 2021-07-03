@@ -75,7 +75,7 @@
             android:layout_toEndOf="@id/btnUpload"
             android:gravity="center"
             android:text="@string/back"
-            android:textSize="@dimen/big_text_size" />
+            android:textSize="24sp" />
 
     </RelativeLayout>
 
