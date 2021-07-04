@@ -20,10 +20,10 @@
 <h2> Technologies Used </h2>
 <ul>
   <li> Android Studio (IDE)</li>
-  <li> AwesomeValidation (TPL) </li>
+  <li> AwesomeValidation (Third Party Library) </li>
   <li> Draw.io (Design/Planning) </li>
   <li> Firebase (Database) </li>
-  <li> Picasso  (TPL) </li>
+  <li> Picasso  (Third Party Library) </li>
 </ul>
 
 <!--Design-->
@@ -68,19 +68,35 @@
 
 <!--Teamwork-->
 <h3> Teamwork makes the Dreamwork </h3>
-<p> Since we only had a week to make this to plan and design, teamwork was definitely one of the key factors of getting it done in time My partner and I would always keep each other updated with the updates that we've down with the code. We would also get on call to explain the code that we added, so that we would both be on the same page. </p>
+<p> Since we only had a week and a half to make this to plan and design, teamwork was definitely one of the key factors of getting it done in time My partner and I would always keep each other updated with the updates that we've down with the code. We would also get on call to explain the code that we added, so that we would both be on the same page. </p>
 
 <!--Downloading Images to Load on ImageViews-->
 <h3> Loading Images through URL </h3>
-<p> We used another third party library called Picasso to handle the images</p>
+<p> We used another third party library called Picasso to handle the images. In this project we used a recycler view to display each image that the user uploads. We use the Picasso library to download the image from the url given, and place it in our onBindViewHolder() in which binds the view holder with the image. </p>
 
 <!--Firebase-->
 <h3> Firebase </h3>
+<p> My partner and I really enjoyed how user-friendly Firebase was. It took us a few days to understand what we needed to do with firebase in respect to our app's objective </p>
+
+<!--Storage-->
+<h4> Firebase Storage </h4>
+<p> We chose to store the images in the storage as opposed to the realtime database because we heard that it would be better, especially for larger sized images. </p>
+<p> Storing an image requries the StorageTask class. Note that each user will have their own directory in our storage. To make sure that the user is uploading in their directory, we had to use the StorageReference class to hold the value of FirebaseStorage.getInstance().child(path). This will get a reference to the path string where path is the user's directory path in our storage.</p>
+
+<!--Realtime Database-->
+<h4> Firebase Realtime Database </h4>
+<p> The image urls from the storage will be stored in here. Also, the unique value will be a randomly generated id that represents the user's unique id. This is to isolate the user's image urls from the other.</p>
+<p> Just like the Storage, we also needed a DatabaseReference class to hold the value of FirebaseDatabase.getInstance().child(path). The path being the directory of the user's account. We created a helper class called Upload that will store the Url along with a caption (for the image). A helper class was used to properly store values into our database called Upload. </p>
+
+<!--Authentication-->
+<h4> Firebase Authentication </h4>
 
 <!--What we think needs improvement-->
 <h2> What we think needs improvement </h2>
 <ul>
-  <li> </li>
+  <li>We were thinking of instead to utilize a grid layout that displays all of the images, and that by clicking an image would enlarge it for a better view </li>
+  <li> We wanted to implement a sorting method that would sort the images in terms of recent to oldest </li>
+  <li> Implement machine learning to define objects within an image</li>
 </ul>
 
 
