@@ -1,7 +1,7 @@
 <h1> CECS 453 Final Project </h1>
 
 <h2> Caution </h2>
-<p> Do not try to sign up with your real account details if you want to try this out. The app can still work if you used fake credentials. This is mainly created for learning purposes.</p>
+<p> Do not use your real credentials when creating a account. You can use fake credentials as we didn't implement a verification for users. This is mainly for learning purposes.</p>
 
 <!--Collaborators-->
 <h2> Collaborators </h2>
@@ -13,8 +13,8 @@
 
 <!--Description-->
 <h2> Description </h2>
-<p> For our final project, we were tasked to come up with a project idea. We wanted to make an app that utilized most of what we learned in our summer class with an additional of wanting to implement Firebase. </p>
-<p> Our app's function is to be able to allow the user to upload images to our database, and allow said user to view all of their uploaded images anytime they want as long as they can connect to our database. </p>
+<p> For our final project, we were tasked to come up with our own application. We wanted to make an app that utilized most of what we learned in our summer class with the addition of wanting to implement Firebase. </p>
+<p> Image Vault is used to store images to the cloud. The user is able to view all of the images that they've uploaded as long as they are connected to a wi-fi service. They also have the option to delete an image. </p>
 
 <!--Technologies Used-->
 <h2> Technologies Used </h2>
@@ -68,15 +68,15 @@
 
 <!--Teamwork-->
 <h3> Teamwork makes the Dreamwork </h3>
-<p> Since we only had a week and a half to make this to plan and design, teamwork was definitely one of the key factors of getting it done in time My partner and I would always keep each other updated with the updates that we've down with the code. We would also get on call to explain the code that we added, so that we would both be on the same page. </p>
+<p> Since we only had a week and a half to make this, teamwork was definitely one of the key factors of getting it done in time. My partner and I would always keep each other updated with the updates that we've done. We would also get on call to explain the code that we added, so that we would both be on the same page. </p>
 
 <!--Downloading Images to Load on ImageViews-->
 <h3> Loading Images through URL </h3>
-<p> We used another third party library called Picasso to handle the images. In this project we used a recycler view to display each image that the user uploads. We use the Picasso library to download the image from the url given, and place it in our onBindViewHolder() in which binds the view holder with the image. </p>
+<p> We used another third party library called Picasso to handle the loading of images. In this project we used a recycler view to display each image that the user uploads. We use the Picasso library to download the image from the url given, and place it in our onBindViewHolder() in which binds the view holder with the image. </p>
 
 <!--Firebase-->
 <h3> Firebase </h3>
-<p> My partner and I really enjoyed how user-friendly Firebase was. It took us a few days to understand what we needed to do with firebase in respect to our app's objective </p>
+<p> My partner and I really enjoyed how user-friendly Firebase was. It took us a few days to understand what we needed to do with firebase in respect to our app's objective, but still was an enjoyable experience</p>
 
 <!--Storage-->
 <h4> Firebase Storage </h4>
@@ -97,6 +97,7 @@
   <li>We were thinking of instead to utilize a grid layout that displays all of the images, and that by clicking an image would enlarge it for a better view </li>
   <li> We wanted to implement a sorting method that would sort the images in terms of recent to oldest </li>
   <li> Implement machine learning to define objects within an image</li>
+<li> Implement a way to verfiy the user like email verification. </li>  
 </ul>
 
 
